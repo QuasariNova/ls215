@@ -5,7 +5,7 @@
 // Function passed to myForEach reassigns the min variable.
 
 function myForEach(array, func) {
-  for(let idx = 0; idx < array.length; i += 1) {
+  for (let idx = 0; idx < array.length; idx += 1) {
     func(array[idx], idx, array);
   }
 }
