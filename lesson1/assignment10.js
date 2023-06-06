@@ -3,7 +3,7 @@
 // return true if every element passed to the function evaluates as truthy.
 
 function myOwnEvery(array, func) {
-  for (let idx = 0; idx < array.length; i += 1) {
+  for (let idx = 0; idx < array.length; idx += 1) {
     if (!func(array[idx])) {
       return false;
     }
