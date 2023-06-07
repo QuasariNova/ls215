@@ -45,14 +45,30 @@ let newReleases = [
 //    Select just releases that have both id and title
 //    Transform array into array of objects with just id and title
 
+/*
+// original:
 function processReleaseData(data) {
   return data.filter(release => release.id && release.title)
     .map(release => {
       return { id: release.id, title: release.title };
     });
 }
+*/
 
 console.log(processReleaseData(newReleases));
 
 // should return:
 // [{ id: 70111470, title: 'Die Hard'}, { id: 675465, title: 'Fracture' }];
+
+// Further Exploration:
+// The current solution assumes that the value of id will be an integer value
+// greater than 0. If it was possible to have a value of 0 for id, what would
+// the implications be to the current solution? What changes, if any, would
+// need to be made in order to handle the 0 value?
+
+function processReleaseData(data) {
+  return data.filter(release => 'id' in release && release.title)
+    .map(release => {
+      return { id: release.id, title: release.title };
+    });
+}
