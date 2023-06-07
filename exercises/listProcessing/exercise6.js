@@ -20,7 +20,8 @@ console.log(substrings('abcde'));
 //   "e" ]
 
 function substrings(string) {
-  return [...string].map((_, idx) => leadingSubstrings(string.slice(idx)));
+  return [...string].map((_, idx) => leadingSubstrings(string.slice(idx)))
+    .flat();
 }
 
 function leadingSubstrings(string) {
