@@ -12,8 +12,34 @@ const text = 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem acc
 
 console.log(searchWord('sed', text));      // 3
 
+
+/*
+// original:
 function searchWord(query, text) {
   const regex = new RegExp(query, 'gi');
+  let matches = text.match(regex);
+
+  return matches ? matches.length : 0;
+}
+//
+*/
+
+// Further Exploration
+
+// The current solution matches the word even when it is just a part of a
+// bigger word, instead of a whole word by itself. For example, when searching
+// for 'qui' in the text, this solution would also return 'quia' as a match:
+
+console.log(searchWord('qui', text));      // should return 4, NOT 13
+
+// Can you refactor the current solution so that it only matches whole words?
+// In addition to this, can you also include input validation to handle cases
+// in which one or both arguments are missing?
+
+function searchWord(query, text) {
+  if (!query || !text) return 0;
+
+  const regex = new RegExp(`\\b${query}\\b`, 'gi');
   let matches = text.match(regex);
 
   return matches ? matches.length : 0;
