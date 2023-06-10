@@ -63,8 +63,8 @@ A
 */
 
 function toLuhnArray(numString) {
-  return [...numString].reverse().map((value, idx) => {
-    if (idx % 2 === 1) {
+  return [...numString].map((value, idx) => {
+    if ((numString.length - idx) % 2 === 0) {
       value *= 2;
       if (value >= 10) value -= 9;
     }
