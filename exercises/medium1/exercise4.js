@@ -85,6 +85,8 @@ minilang('-3 PUSH 5 SUB PRINT');
 minilang('6 PUSH');
 // (nothing is printed because the `program` argument has no `PRINT` commands)
 
+/*
+// original:
 function minilang(code) {
   const lines = code.split(' ');
 
@@ -107,3 +109,50 @@ function createMiniLangMachine() {
     else register = parseInt(command, 10);
   };
 }
+*/
+
+// further exploration:
+// Refactor the minilang function to include some error handling. In
+// particular, the function should detect and report empty stack conditions,
+// and invalid tokens in the program. Ideally, the function should return an
+// error message if an error occurs, or undefined if the program runs
+// successfully.
+
+function minilang(code) {
+  const lines = code.split(' ');
+
+  try {
+    lines.forEach(createMiniLangMachine());
+  } catch (exception) {
+    console.log(exception);
+    return exception.message;
+  }
+
+  return undefined;
+}
+
+function createMiniLangMachine() {
+  const STACK_COMMANDS = ['ADD', 'SUB', 'MULT', 'DIV', 'REMAINDER', 'POP'];
+  let register = 0;
+  const stack = [];
+
+  return function(command) {
+    if (stack.length === 0 && STACK_COMMANDS.includes(command)) {
+      throw new Error('MiniLang Stack is empty');
+    }
+
+    if (/^-?\d+$/.test(command)) register = parseInt(command, 10);
+    else if (command === 'PUSH') stack.push(register);
+    else if (command === 'ADD') register += stack.pop();
+    else if (command === 'SUB') register -= stack.pop();
+    else if (command === 'MULT') register *= stack.pop();
+    else if (command === 'DIV') register = Math.floor(register / stack.pop());
+    else if (command === 'REMAINDER') register %= stack.pop();
+    else if (command === 'POP') register = stack.pop();
+    else if (command === 'PRINT') console.log(register);
+    else throw new SyntaxError('MiniLang Invalid token');
+  };
+}
+
+minilang('2 1 pop');
+minilang('3 POP PRINT');
