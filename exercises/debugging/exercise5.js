@@ -28,3 +28,16 @@ function range(start, end) {
 
 console.log(range(10, 20));
 console.log(range(5));
+
+// Further Exploration
+// There are two reasons why the following is not a working solution. Can you
+// spot them?
+
+// function range(start, end) {
+//   if (!end) { // 0 is falsy
+//     start = 0;
+//     end = start; // we assign end to 0 instead of what start should of been
+//   }
+
+//   // ...
+// }
