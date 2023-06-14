@@ -52,10 +52,13 @@ diamond(9);
 // - concatenate the copy to the original array
 // - Iterate over array and log each string
 
+/*
+// original:
 function toStarRow(stars, oddNumber) {
   const spaces = ' '.repeat(Math.floor((oddNumber - stars) / 2));
   return spaces + '*'.repeat(stars);
 }
+*/
 
 function diamond(oddNumber) {
   let diamond = [];
@@ -70,3 +73,15 @@ function diamond(oddNumber) {
 }
 
 // 16 minutes
+
+// The current solution builds a solid diamond—refactor it to build a hollow
+// diamond.
+
+function toStarRow(stars, oddNumber) {
+  const spaces = ' '.repeat(Math.floor((oddNumber - stars) / 2));
+
+  if (stars === 1) return spaces + '*';
+
+  const middle = ' '.repeat(stars - 2);
+  return `${spaces}*${middle}*`;
+}
